@@ -1,5 +1,7 @@
 package com.revature;
 
+import java.util.Arrays;
+
 public class HelloWorld { //class should use caps at start as well as each word
 	
 	public static void main(String[] args) {
@@ -37,7 +39,38 @@ public class HelloWorld { //class should use caps at start as well as each word
 		Integer intWrap = new Integer(standardDataTypeForWholeNumber);
 		//Integer intWrap = standardDataTypeForWholeNumber;
 		
+		//converts string "5" to int 5
+		int i = Integer.parseInt("5");
+		
 		System.out.println("Max value for int: " + Integer.MAX_VALUE + ", min value for int: " + Integer.MIN_VALUE);
+		
+		//declaring an array
+		int[] numbers;
+		
+		//creates an array of size 5 and assign it to the variable numbers
+		numbers = new int[5];
+		
+		numbers[0] = 2;
+		numbers[3] = 4;
+		
+		System.out.println(numbers[0]);
+		
+		for(int j = 0; j < numbers.length; j++) {
+			System.out.println(numbers[j]);
+		}
+		// enhanced for-loop, however we don't have access to the index
+		Arrays.sort(numbers);
+		
+		for(int in : numbers) {
+			System.out.println(in);
+		}
+		
+		String k = "kevin";
+		char[] chars = k.toCharArray();
+		
+		for(char c : chars) {
+			System.out.println(c);
+		}
 	}
 
 }
