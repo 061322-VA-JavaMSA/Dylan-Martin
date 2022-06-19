@@ -1,19 +1,19 @@
-package com.revature.scanner;
+package com.revature.project0;
 
 import java.util.Scanner;
-import java.io.IOException;
 
-public class menu {
+public class store {
 
-	static Scanner scan = new Scanner(System.in);
+	static Scanner s = new Scanner(System.in);
 
 	public static void main(String[] args) {
 
 		loginScreen();
 
-		menu();
+		store();
 
 	}
+
 	public static void loginScreen() {
 		String username = "admin";
 		String password = "pass";
@@ -23,23 +23,23 @@ public class menu {
 		boolean correct = false;
 		do {
 			System.out.println("Please enter your username: ");
-			inputUser = scan.nextLine();
+			inputUser = s.nextLine();
 			System.out.println("Please enter your password: ");
-			inputPass = scan.nextLine();
+			inputPass = s.nextLine();
 
 			if (inputUser.equals(username) && inputPass.equals(password)) {
 				correct = true;
 			} else {
-				System.out.println("Invalid username or password, please try again");
+				System.out.println("Invalid credentials, please try again");
 				correct = false;
 			}
 
 		} while (correct == false);
 
 	}
-
-	public static void menu() {
-		System.out.println("Welcome to the Menu!");
+	
+	public static void store() {
+		System.out.println("Welcome to Dylan's PCHardware Store!");
 		String choice = "";
 		do {
 
@@ -47,7 +47,7 @@ public class menu {
 			System.out.println("2: Reverse a string");
 			System.out.println("3: Exit");
 			System.out.println("Please select an option");
-			choice = scan.nextLine();
+			choice = s.nextLine();
 			switch (choice) {
 			case "1":
 				System.out.println("Your Random number is: " + (int) (Math.random() * 500));
@@ -56,7 +56,7 @@ public class menu {
 			case "2":
 				String toBeReversed;
 				System.out.println("Please enter a string to be reversed");
-				toBeReversed = scan.nextLine();
+				toBeReversed = s.nextLine();
 				StringBuilder sb = new StringBuilder(toBeReversed);
 				System.out.println(sb.reverse());
 				System.out.println();
@@ -71,7 +71,7 @@ public class menu {
 			}
 		} while (!choice.equals("3"));
 
-		scan.close();
+		s.close();
 	}
 
 }
