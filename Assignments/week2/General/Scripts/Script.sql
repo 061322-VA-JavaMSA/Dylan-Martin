@@ -1,3 +1,7 @@
+--assignment is at the bottom
+
+
+
 --this is a comment
 
 /*This is a 
@@ -55,7 +59,7 @@ team_id integer references teams(id)
 
 -- many to many
 
-create table people(
+/*create table people(
 id serial primary key,
 name varchar(30)
 );
@@ -64,7 +68,7 @@ create table friends(
 friend1_id integer references people(id),
 friend2_id integer references people(id),
 primary key (friend1_id, friend2_id)
-);
+);*/
 
 --insert
 insert into people (name) values ('nikita');
@@ -97,35 +101,48 @@ delete from people; -- this will delete all records in people
 -----------------Assignment-----------------
 
 
-drop table if exists Salestaff;
 
-create table if not exists Salestaff (
-Employee_id serial primary Key,
-Sales_Person varchar(30),
-Sales_Office integer references Sales_Office(id),
-SO_street varchar(30),
-SO_city varchar(30),
-SO_state varchar(30),
-SO_zip integer,
-Age integer,
-DoB date
-);
-
-drop table if exists Customers;
-
-create table if not exists Customers(
-Customer_id serial primary key,
-Customer_Name varchar(30),
-Sales_Person_id integer references Salestaff(Employee_id)
-);
-
-drop table if exists people;
+drop table if exists people cascade;
 
 create table if not exists people(
 People_id serial primary key,
 Name varchar(30),
 age integer,
-DOB date,
-Customer boolean,
-Employee boolean,
+DOB date
+);
+
+drop table if exists Sales_Office cascade;
+
+create table if not exists Sales_Office(
+SO_id serial primary key,
+SO_name varchar(30),
+SO_street varchar(30),
+SO_city varchar(30),
+SO_state varchar(30),
+SO_zip integer
+);
+
+drop table if exists Salestaff cascade;
+
+create table if not exists Salestaff (
+Employee_id serial primary Key,
+People_id serial references people(People_id),
+SO_id serial references Sales_Office(SO_id)
+);
+
+drop table if exists Customers cascade;
+
+create table if not exists Customers(
+Customer_id serial primary key,
+Customer_Name varchar(30),
+Sales_Person_id serial references Salestaff(Employee_id)
+);
+
+drop table if exists people cascade;
+
+create table if not exists people(
+People_id serial primary key,
+Name varchar(30),
+age integer,
+DOB date
 );
