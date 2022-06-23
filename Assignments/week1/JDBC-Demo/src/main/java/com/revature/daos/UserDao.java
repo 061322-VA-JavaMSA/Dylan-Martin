@@ -5,7 +5,6 @@ import java.util.List;
 import com.revature.models.User;
 
 public interface UserDao {
-
 	User createUser(User u);
 	User retrieveUserById(int id);
 	List<User> retrieveUsers();

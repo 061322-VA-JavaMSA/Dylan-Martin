@@ -1,5 +1,6 @@
 package com.revature.daos;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -70,7 +71,7 @@ public class UserPostgres implements UserDao{
 			ResultSet rs = s.executeQuery(sql);
 			
 			while(rs.next()) {
-				// extract each field from rs for each record, map them to a User object and add them to the users arrayliost
+				// extract each field from rs for each record, map them to a User object and add them to the users arraylist
 				User u = new User();
 				u.setId(rs.getInt("id"));
 				u.setUsername(rs.getString("username"));

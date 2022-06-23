@@ -8,8 +8,32 @@ import java.util.Properties;
 
 public class ConnectionUtil {
 
-	//reuse c instead of creating new connection to the DB
-	public static Connection c;
+	/*
+	 * Singleton
+	 * 	- Design pattern that ensures that there is only one instance of a class
+	 * 		- useful for heavier resources
+	 * 	- enforced via multiple conditions
+	 * 		- private static instance of the singleton class
+	 * 		- public static getter method to retrieve the same instance of the singleton
+	 * 		- private constructor
+	 */
+	// reuse c instead of creating new connections to the database
+	private static Connection c;
+	
+	public static Connection getHardcodedConnection() throws SQLException {
+		// String url = "jdbc:[driver]://[url]:[port]/[db-name]";
+		// String url = "jdbc:postgresql://localhost:5432/postgres";
+		String url = "jdbc:postgresql://database-1.c06saqkwyoup.us-east-1.rds.amazonaws.com:5432/postgres";
+		String username = "postgres";
+		String password = "";
+
+		// checks if a connection is open else opens a new one and assigns it to c
+		if (c == null || c.isClosed()) {
+			c = DriverManager.getConnection(url, username, password);
+		}
+		
+		return c;
+	}
 	
 	public static Connection getConnectionFromFile() throws SQLException, IOException {
 		Properties prop = new Properties();

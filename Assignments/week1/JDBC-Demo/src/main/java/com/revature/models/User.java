@@ -6,7 +6,7 @@ import java.util.Objects;
  * fields private
  * created a no-args constructor
  * generated setters/getters to interact with private fields
- * generate hash-code/equals - to compare User objects
+ * generate hashcode/equals - to compare User objects
  * generate toString()
  */
 public class User {
