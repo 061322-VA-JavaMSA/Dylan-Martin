@@ -25,7 +25,7 @@ public class ConnectionUtil {
 		// String url = "jdbc:postgresql://localhost:5432/postgres";
 		String url = "jdbc:postgresql://database-1.c06saqkwyoup.us-east-1.rds.amazonaws.com:5432/postgres";
 		String username = "postgres";
-		String password = "";
+		String password = "Glaive982#";
 
 		// checks if a connection is open else opens a new one and assigns it to c
 		if (c == null || c.isClosed()) {
