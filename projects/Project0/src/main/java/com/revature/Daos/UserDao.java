@@ -1,8 +1,8 @@
-package com.revature.Daos;
+package com.revature.daos;
 
 import java.util.List;
 
-import com.revature.Models.User;
+import com.revature.models.User;
 
 public interface UserDao {
 	User createUser(User u);

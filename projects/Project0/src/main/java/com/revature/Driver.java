@@ -3,9 +3,14 @@ package com.revature;
 import java.util.List;
 import java.util.Scanner;
 
-import com.revature.Exceptions.LoginException;
-import com.revature.Models.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.revature.exceptions.LoginException;
+import com.revature.models.Task;
+import com.revature.models.User;
 import com.revature.services.AuthService;
+import com.revature.services.TaskService;
 import com.revature.services.UserService;
 
 public class Driver {
@@ -13,6 +18,7 @@ public class Driver {
 	static Scanner scan;
 	static AuthService as;
 	static UserService us;
+	private static Logger log = LogManager.getLogger(Driver.class);
 	
 	public static void main(String[] args) {
 		scan = new Scanner(System.in);
@@ -28,10 +34,11 @@ public class Driver {
 		password = scan.nextLine();
 		
 		try {
-			System.out.println(as.login(username, password));
+			log.info(as.login(username, password));
 		} catch (LoginException e) {
 			System.out.println("Invalid credentials.");
-			e.printStackTrace();
+			log.error("Login exception was thrown: " + e.fillInStackTrace());
+//			e.printStackTrace();
 		}
 
 		
@@ -47,8 +54,8 @@ public class Driver {
 		User userTBC = new User();
 		userTBC.setUsername(uname);
 		userTBC.setPassword(pass);
-		System.out.println(us.createUser(userTBC));
-				
+		log.info(us.createUser(userTBC));
+		
 		scan.close();
 	}
 

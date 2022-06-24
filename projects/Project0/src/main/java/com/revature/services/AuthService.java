@@ -1,9 +1,9 @@
 package com.revature.services;
 
-import com.revature.Daos.UserDao;
-import com.revature.Daos.UserPostgres;
-import com.revature.Exceptions.LoginException;
-import com.revature.Models.User;
+import com.revature.daos.UserDao;
+import com.revature.daos.UserPostgres;
+import com.revature.exceptions.LoginException;
+import com.revature.models.User;
 
 public class AuthService {
 
@@ -18,7 +18,7 @@ public class AuthService {
 		User u = ud.retrieveUserByUsername(username);
 		// if no user of that name has been retrieved/if pass don't match, throw an exception
 		if(u == null || !u.getPassword().equals(password)) {
-//			throw new LoginException();
+			throw new LoginException();
 		}
 		return u;
 	}

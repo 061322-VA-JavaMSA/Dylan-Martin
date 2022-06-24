@@ -1,0 +1,6 @@
+20:14:23 [main] ERROR com.revature.Driver - Login exception was thrown: com.revature.exceptions.LoginException
+20:17:04 [main] ERROR com.revature.Driver - Login exception was thrown: com.revature.exceptions.LoginException
+20:18:52 [main] ERROR com.revature.Driver - Login exception was thrown: com.revature.exceptions.LoginException
+20:37:41 [main] ERROR com.revature.Driver - Login exception was thrown: com.revature.exceptions.LoginException
+20:56:24 [main] ERROR com.revature.Driver - Login exception was thrown: com.revature.exceptions.LoginException
+21:04:53 [main] ERROR com.revature.Driver - Login exception was thrown: com.revature.exceptions.LoginException

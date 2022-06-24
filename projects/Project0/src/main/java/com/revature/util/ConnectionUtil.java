@@ -19,21 +19,6 @@ public class ConnectionUtil {
 	 */
 	// reuse c instead of creating new connections to the database
 	private static Connection c;
-
-	public static Connection getHardcodedConnection() throws SQLException {
-		// String url = "jdbc:[driver]://[url]:[port]/[db-name]";
-		String url = "jdbc:postgresql://localhost:5432/postgres";
-		// String url = "jdbc:postgresql://database-1.cllvqmegtmuc.us-east-1.rds.amazonaws.com:5432/postgres";
-		String username = "postgres";
-		String password = "Glaive982#";
-
-		// checks if a connection is open else opens a new one and assigns it to c
-		if (c == null || c.isClosed()) {
-			c = DriverManager.getConnection(url, username, password);
-		}
-		
-		return c;
-	}
 	
 	public static Connection getConnectionFromFile() throws SQLException, IOException {
 		Properties prop = new Properties();
