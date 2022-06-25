@@ -12,6 +12,8 @@ import java.util.Objects;
 public class User {
 
 	private int id;
+	private String firstname;
+	private String lastname;
 	private String username;
 	private String password;
 	
@@ -26,6 +28,22 @@ public class User {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public String getFirstName() {
+		return firstname;
+	}
+	
+	public void setFirstName(String firstname) {
+		this.firstname = firstname;
+	}
+	
+	public String getLastName() {
+		return lastname;
+	}
+	
+	public void setLastName(String lastname) {
+		this.lastname = lastname;
 	}
 
 	public String getUsername() {
@@ -46,7 +64,7 @@ public class User {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, password, username);
+		return Objects.hash(id, firstname, lastname, username, password);
 	}
 
 	@Override
@@ -58,12 +76,12 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return id == other.id && Objects.equals(password, other.password) && Objects.equals(username, other.username);
+		return id == other.id && Objects.equals(firstname, other.firstname) && Objects.equals(lastname, other.lastname) && Objects.equals(username, other.username) && Objects.equals(password, other.password);
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + "]";
+		return "User [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", username=" + username + ", password=" + password + "]";
 	}
 	
 }
