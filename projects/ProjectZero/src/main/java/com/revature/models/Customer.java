@@ -5,6 +5,8 @@ import java.util.Objects;
 public class Customer {
 	
 	private int customer_id;
+	private String firstname;
+	private String lastname;
 	
 	public Customer() {
 		super();
@@ -23,8 +25,24 @@ public class Customer {
 		return Objects.hash(customer_id);
 	}
 	
+	public String getFirstName() {
+		return firstname;
+	}
+	
+	public void setFirstName(String firstname) {
+		this.firstname = firstname;
+	}
+	
+	public String getLastName() {
+		return lastname;
+	}
+	
+	public void setLastName(String lastname) {
+		this.lastname = lastname;
+	}
+	
 	@Override
-	public boolean equals(Objects obj) {
+	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)

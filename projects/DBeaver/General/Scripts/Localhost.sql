@@ -2,8 +2,6 @@ drop table if exists users cascade;
 
 create table if not exists users(
 id serial primary key,
-firstname varchar(30),
-lastname varchar(30),
 username varchar(30) unique not null check(length(username) > 2),
 password varchar(30) not null
 );
@@ -12,6 +10,8 @@ drop table if exists customers cascade;
 
 create table if not exists customers(
 customer_id serial primary key,
+firstname varchar(30),
+lastname varchar(30),
 id serial references users(id)
 );
 
@@ -69,7 +69,6 @@ offer_id serial references offers(offer_id),
 payment_amount integer,
 payemnt_duration integer
 );
-
 
 
 alter table items
