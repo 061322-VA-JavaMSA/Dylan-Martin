@@ -6,14 +6,17 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.revature.menus.EmployeeMenu;
+import com.revature.menus.IMenu;
 import com.revature.services.AuthService;
 import com.revature.services.EmployeeService;
+import com.revature.services.UserService;
 
 public class EmployeeDriver {
-	
+
 	static Scanner scan;
 	static AuthService as;
 	static EmployeeService es;
+	static UserService us;
 	
 	public static Logger log = LogManager.getLogger(EmployeeDriver.class);
 
@@ -22,6 +25,7 @@ public class EmployeeDriver {
 		scan = new Scanner(System.in);
 		as = new AuthService();
 		es = new EmployeeService();
+		us = new UserService();
 		
 		String e_name = null;
 		String e_pass = null;
@@ -39,7 +43,9 @@ public class EmployeeDriver {
 				e.printStackTrace();
 			}
 		} while ((e_name != e_name) && (e_pass != e_pass));
-		EmployeeMenu.employeeMenu();
+		EmployeeMenu employeeMenu = new EmployeeMenu(us);
+		employeeMenu.employeeMenu();
+		
 		scan.close();
 	}
 

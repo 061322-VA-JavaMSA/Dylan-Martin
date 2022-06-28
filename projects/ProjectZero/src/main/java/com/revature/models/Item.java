@@ -8,7 +8,7 @@ public class Item {
 	private int item_id;
 	private String name;
 	private String description;
-	private String status;
+	private int availability;
 //	private int userAssignedId; -- not OOP
 //	private User userAssigned;
 	public Item() {
@@ -33,15 +33,15 @@ public class Item {
 	public void setDescription(String item_description) {
 		this.description = item_description;
 	}
-	public String getStatus() {
-		return status;
+	public int getAvailability() {
+		return availability;
 	}
-	public void setStatus(String item_state) {
-		this.status = item_state;
+	public void setAvailability(int item_availability) {
+		this.availability = item_availability;
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(item_id, description, item_id, status);
+		return Objects.hash(item_id, description, item_id, availability);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -52,11 +52,10 @@ public class Item {
 		if (getClass() != obj.getClass())
 			return false;
 		Item other = (Item) obj;
-		return item_id == other.item_id && Objects.equals(name, other.name) && Objects.equals(description, other.description) && Objects.equals(status, other.status);
+		return item_id == other.item_id && Objects.equals(name, other.name) && Objects.equals(description, other.description) && Objects.equals(availability, other.availability);
 	}
 	@Override
 	public String toString() {
-		return "Task [id=" + item_id + ", name=" + name + ", description=" + description + ", status=" + status
-				+  "]";
+		return "Item [id=" + item_id + ", name=" + name + ", description=" + description + ", availability=" + availability + "]";
 	}
 }

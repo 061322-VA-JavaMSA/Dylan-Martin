@@ -2,11 +2,19 @@ package com.revature.menus;
 
 import java.util.Scanner;
 
-public class EmployeeMenu {
+import com.revature.services.UserService;
+
+public class EmployeeMenu extends IMenu {
 	
+	public EmployeeMenu(UserService us) {
+		super(us);
+		// TODO Auto-generated constructor stub
+	}
+
 	static Scanner scan;
 	
-	public static void employeeMenu() {
+	@SuppressWarnings("static-access")
+	public void employeeMenu() {
 		scan = new Scanner(System.in);
 		
 		String choice = "";
@@ -15,18 +23,21 @@ public class EmployeeMenu {
 		System.out.println();
 		System.out.println("Please select and option:");
 		System.out.println("1: View the employee items menu");
-		System.out.println("2: View all offers");
+		System.out.println("2: View item offers");
 		System.out.println("3: View all payments");
 		System.out.println("4: Exit");
 		
 		choice = scan.nextLine();
 		
 		if (choice.equals("1")) {
-			EItemMenu.eItemMenu();
+			EItemMenu eItemMenu = new EItemMenu(us);
+			eItemMenu.eItemMenu();
 		} else if (choice.equals("2")) {
-			EOfferMenu.eOfferMenu();
+			EOfferMenu eOfferMenu = new EOfferMenu(us);
+			eOfferMenu.eOfferMenu();
 		} else if (choice.equals("3")) {
-			EPaymentMenu.ePaymentMenu();
+			EPaymentMenu ePaymentMenu = new EPaymentMenu(us);
+			ePaymentMenu.ePaymentMenu();
 		} else if (choice.equals("4")) {
 			System.out.println("See you later.");
 		}

@@ -7,6 +7,9 @@ public class Offer {
 	private int offer_id;
 	private int offer_amount;
 	private String offer_status;
+	private int requestedItemId;
+	private Item requestedItem;
+	private int cust_id;
 	
 	public Offer() {
 		super();
@@ -18,6 +21,22 @@ public class Offer {
 	
 	public void setId(int offer_id) {
 		this.offer_id = offer_id;
+	}
+	
+	public int getRequestedItemId() {
+		return requestedItemId;
+	}
+	
+	public void setRequestedItemId(int requestedItemID) {
+		this.requestedItemId = requestedItemID;
+	}
+	
+	public Item getRequestedItem() {
+		return requestedItem;
+	}
+	
+	public void setRequestedItem(Item requested_item_id) {
+		this.requestedItem = requested_item_id;		
 	}
 	
 	public int getAmt() {
@@ -34,6 +53,14 @@ public class Offer {
 	
 	public void setStatus(String offer_status) {
 		this.offer_status = offer_status;
+	}	
+	
+	public int getCustomerId() {
+		return cust_id;
+	}
+
+	public void setCustomerId(int customer_id) {
+		this.cust_id = customer_id;
 	}
 	
 	@Override
@@ -50,10 +77,13 @@ public class Offer {
 		if (getClass() != obj.getClass())
 			return false;
 		Offer other = (Offer) obj;
-		return offer_id == other.offer_id && Objects.equals(offer_amount, other.offer_amount) && Objects.equals(offer_status, other.offer_status);
+		return offer_id == other.offer_id && Objects.equals(requestedItem, other.requestedItem) && Objects.equals(offer_amount, other.offer_amount) && Objects.equals(offer_status, other.offer_status) && Objects.equals(cust_id, other.cust_id);
 	}
 	@Override
 	public String toString() {
-		return "Offer [id= " + offer_id + ", offer amount= $" + offer_amount + ", offer_status= " + offer_status + "]";
+		return "Offer [id= " + offer_id + ", created by customer id= " + cust_id + ", for the item id= " + requestedItem + ", offer amount= $" + offer_amount + ", offer_status= " + offer_status + "]";
 	}
+
 }
+
+	

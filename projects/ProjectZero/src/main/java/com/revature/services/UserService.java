@@ -12,6 +12,7 @@ import com.revature.models.User;
 public class UserService {
 
 	private UserDao ud = new UserPostgres();
+	private static User currentUser = new User();
 	private static Logger log = LogManager.getLogger(UserService.class);
 	
 	public List<User> getUsers(){
@@ -25,5 +26,13 @@ public class UserService {
 		User user = ud.createUser(u);
 		log.info("User: " + user + " was created.");
 		return user;
+	}
+
+	public static User getCurrentUser() {
+		return currentUser;
+	}
+
+	public static void setCurrentUser(User currentUser) {
+		UserService.currentUser = currentUser;
 	}
 }

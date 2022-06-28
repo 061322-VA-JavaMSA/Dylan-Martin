@@ -13,16 +13,20 @@ import com.revature.services.UserService;
 public class Login {
 	
 	static Scanner scan;
-	static AuthService as;
-	static UserService us;
 	
-	public static Logger log = LogManager.getLogger(Login.class);
+	public static Logger log = LogManager.getLogger(Login.class);	
 	
-	public static void userLogin() {
+	AuthService as;
+	UserService us;
+	
+	public void init(AuthService as, UserService us) { 
+		this.as = as;
+		this.us = us;
+	}
+	
+	public void userLogin() {
 		
 		scan = new Scanner(System.in);
-		as = new AuthService();
-		us = new UserService();
 		
 		String username = null;
 		String password = null;
@@ -34,7 +38,8 @@ public class Login {
 			password = scan.nextLine();
 		
 			try {
-				log.info(as.login(username, password));
+				User currentUser = as.login(username, password);
+				us.setCurrentUser(currentUser);
 			} catch (LoginException e) {
 				System.out.println("Invalid credentials, please try again.");
 				log.error("Login exception was thrown: " + e.fillInStackTrace());
@@ -42,7 +47,9 @@ public class Login {
 			}					
 		
 		} while ((username != username) || (password != password));
-		MainMenu.mainStart();
+		
+		MainMenu mainMenu = new MainMenu(us);
+		mainMenu.mainStart();
 		scan.close();
 	} 
 

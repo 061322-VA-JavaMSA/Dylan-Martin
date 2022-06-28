@@ -23,5 +23,9 @@ public class OfferService {
 		log.info("Offer: " + offer + " was created.");
 		return offer;
 	}
+	
+	public List<Offer> getOffersByItemId(int item_id) {
+		return	od.retrieveOffersByItemId(item_id);	
+	}
 
 }

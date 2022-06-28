@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.revature.models.Item;
 import com.revature.models.Offer;
 import com.revature.util.ConnectionUtil;
 
@@ -15,11 +16,13 @@ public class OfferPostgres implements OfferDao {
 	
 	@Override
 	public Offer createOffer(Offer o) {
-		String sql = "insert into offers (offer_amount, offer_status) values (?,?) returning offer_id;";
+		String sql = "insert into offers (requested_item_id, offer_amount, offer_status, cust_id) values (?,?,?,?) returning offer_id;";
 		try (Connection c = ConnectionUtil.getConnectionFromEnv()){
 			PreparedStatement ps = c.prepareStatement(sql);
-			ps.setInt(1, o.getAmt());
-			ps.setString(2, "pending");
+			ps.setInt(1, o.getRequestedItemId());
+			ps.setInt(2, o.getAmt());
+			ps.setString(3, "pending");
+			ps.setInt(4, o.getCustomerId());
 			
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
@@ -56,21 +59,60 @@ public class OfferPostgres implements OfferDao {
 		}
 		return offer;
 	}
-
+	
 	@Override
 	public List<Offer> retrieveOffers() {
 		String sql = "select * from offers;";
 		List<Offer> offers = new ArrayList<>();
 		
-		try (Connection c = ConnectionUtil.getConnectionFromEnv()) {
+		try(Connection c = ConnectionUtil.getConnectionFromEnv()){
+			// no user input taken, no need for prepared statement
 			Statement s = c.createStatement();
 			ResultSet rs = s.executeQuery(sql);
+			
+			while(rs.next()) {
+				// extract each field from rs for each record, map them to a User object and add them to the users arraylist
+				Offer o = new Offer();
+				o.setId(rs.getInt("offer_id"));
+				o.setAmt(rs.getInt("offer_amount"));
+				o.setStatus(rs.getString("offer_status"));
+				
+				offers.add(o);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return offers;
+	}
+
+
+	@Override
+	public List<Offer> retrieveOffersByItemId(int item_id) {
+		String sql = "select o.offer_id, o.cust_id, o.offer_amount, o.offer_status, o.requested_item_id, i.item_name, i.item_description, i.item_availability from offers o join items i on o.requested_item_id = i.item_id where requested_item_id = ?;";
+		List<Offer> offers = new ArrayList<>();
+		
+		try (Connection c = ConnectionUtil.getConnectionFromEnv()) {
+			PreparedStatement ps = c.prepareStatement(sql);
+			
+			ps.setInt(1, item_id);
+			
+			ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()) {
 				Offer o = new Offer();
 				o.setId(rs.getInt("offer_id"));
 				o.setAmt(rs.getInt("offer_amount"));
 				o.setStatus(rs.getString("offer_status"));
+				o.setCustomerId(rs.getInt("cust_id"));
+				
+				Item i = new Item();
+				i.setId(rs.getInt("requested_item_id"));
+				i.setName(rs.getString("item_name"));
+				i.setDescription(rs.getString("item_description"));
+				i.setAvailability(rs.getInt("item_availability"));
+				
+				o.setRequestedItem(i);
 				
 				offers.add(o);				
 			}
@@ -170,6 +212,5 @@ public class OfferPostgres implements OfferDao {
 			return false;
 		}
 		return true;
-	}
-	
+	}	
 }

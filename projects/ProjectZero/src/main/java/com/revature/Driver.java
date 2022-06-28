@@ -28,6 +28,9 @@ public class Driver {
 		us = new UserService();
 		cs = new CustomerService();
 		
+		Login login = new Login();	
+		login.init(as, us);
+		
 		String choice = "";
 		System.out.println("Welcome to Dylan's PC Hardware!");
 			System.out.println();
@@ -36,7 +39,7 @@ public class Driver {
 					+ "\n1: yes, 2: no 3: Exit");
 			choice = scan.nextLine();
 			if (choice.equals("1")) {
-				Login.userLogin();	
+				login.userLogin();	
 				
 			} else if (choice.equals("2")) {
 				System.out.println("Create, username:");
@@ -61,7 +64,7 @@ public class Driver {
 						+ "\n\nPlease sign in.");
 				System.out.println();
 				
-				Login.userLogin();
+				login.userLogin();
 				
 			} else if (choice.equals("3")) {
 				System.out.println("Goodbye! Please come again!");

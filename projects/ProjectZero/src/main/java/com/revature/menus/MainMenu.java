@@ -3,12 +3,22 @@ package com.revature.menus;
 import java.util.Scanner;
 
 import com.revature.models.OwnedItems;
+import com.revature.services.AuthService;
+import com.revature.services.UserService;
 
-public class MainMenu {
+public class MainMenu extends IMenu {
 	
+	public MainMenu(UserService us) {
+		super(us);
+		// TODO Auto-generated constructor stub
+	}
+
+	static AuthService as;
 	static Scanner scan;
 	
-	public static void mainStart() {
+	public void mainStart() {
+		
+		
 		
 		scan = new Scanner(System.in);
 		
@@ -25,7 +35,8 @@ public class MainMenu {
 		choice = scan.nextLine();
 		
 		if (choice.equals("1")) {
-			ItemMenu.startItemMenu();
+			ItemMenu itemMenu = new ItemMenu(us);
+			itemMenu.startItemMenu();
 		} else if (choice.equals("2")) {
 			OwnedItems.startOwnedItems();
 		} else if (choice.equals("3")) {
