@@ -11,6 +11,7 @@ public interface OfferDao {
 	List<Offer>	retrieveOffersByItemId(int item_id);
 	Offer retrieveOffersByOfferAmount(int offer_amount);
 	Offer retrieveOffersByOfferStatus(String offer_status);
-	boolean updateOffer(Offer o);
 	boolean deleteOfferByID(int offer_id);
+	boolean updateOffer(int offer_id);
+	boolean rejectOffer(int item_id);
 }

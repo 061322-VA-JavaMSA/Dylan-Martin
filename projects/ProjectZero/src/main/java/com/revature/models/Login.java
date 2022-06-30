@@ -30,8 +30,11 @@ public class Login {
 		
 		String username = null;
 		String password = null;
+
+		boolean loginOk = true;
 		
 		do {
+			loginOk = true;
 			System.out.println("Please enter username:");
 			username = scan.nextLine();
 			System.out.println("Please enter password:");
@@ -39,14 +42,14 @@ public class Login {
 		
 			try {
 				User currentUser = as.login(username, password);
-				us.setCurrentUser(currentUser);
+				UserService.setCurrentUser(currentUser); //was us.set...
 			} catch (LoginException e) {
 				System.out.println("Invalid credentials, please try again.");
 				log.error("Login exception was thrown: " + e.fillInStackTrace());
-//				e.printStackTrace();					
+				loginOk = false;				
 			}					
 		
-		} while ((username != username) || (password != password));
+		} while (!loginOk);
 		
 		MainMenu mainMenu = new MainMenu(us);
 		mainMenu.mainStart();

@@ -121,6 +121,41 @@ public class OfferPostgres implements OfferDao {
 		}
 		return offers;
 	}
+	
+//	@Override
+//	public List<Offer> retrieveOffersByRequested_ItemId(int requested_item_id) {
+//		String sql = "select o.offer_id, o.cust_id, o.offer_amount, o.offer_status, o.requested_item_id, i.item_name, i.item_description, i.item_availability from offers o join items i on o.requested_item_id = i.item_id where requested_item_id = ?;";
+//		List<Offer> offers = new ArrayList<>();
+//		
+//		try (Connection c = ConnectionUtil.getConnectionFromEnv()) {
+//			PreparedStatement ps = c.prepareStatement(sql);
+//			
+//			ps.setInt(1, requested_item_id);
+//			
+//			ResultSet rs = ps.executeQuery();
+//			
+//			while (rs.next()) {
+//				Offer o = new Offer();
+//				o.setId(rs.getInt("offer_id"));
+//				o.setAmt(rs.getInt("offer_amount"));
+//				o.setStatus(rs.getString("offer_status"));
+//				o.setCustomerId(rs.getInt("cust_id"));
+//				
+//				Item i = new Item();
+//				i.setId(rs.getInt("requested_item_id"));
+//				i.setName(rs.getString("item_name"));
+//				i.setDescription(rs.getString("item_description"));
+//				i.setAvailability(rs.getInt("item_availability"));
+//				
+//				o.setRequestedItem(i);
+//				
+//				offers.add(o);				
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return offers;
+//	}
 
 	@Override
 	public Offer retrieveOffersByOfferAmount(int offer_amount) {
@@ -171,15 +206,14 @@ public class OfferPostgres implements OfferDao {
 	}	
 
 	@Override
-	public boolean updateOffer(Offer o) {
-		String sql = "update offers set offer_amount = ?, offer_status = ? where offer_id = ?;";
+	public boolean updateOffer(int offer_id) {
+		String sql = "update offers set offer_status = ? where offer_id = ?;";
 		int rowsChanged = -1;
 		
 		try (Connection c = ConnectionUtil.getConnectionFromEnv()){
 			PreparedStatement ps = c.prepareStatement(sql);
-			ps.setInt(1, o.getAmt());
-			ps.setString(2, o.getStatus());
-			ps.setInt(3, o.getId());
+			ps.setString(1, "accepted");
+			ps.setInt(2, offer_id);
 			
 			rowsChanged = ps.executeUpdate();
 		} catch (SQLException e) {
@@ -191,7 +225,29 @@ public class OfferPostgres implements OfferDao {
 		}
 				
 		return true;
-	}
+	}	
+
+//	@Override //was used while testing functionality and setting up the system for automated offer rejection
+//	public boolean updateOffer(int offer_id) {
+//		String sql = "update offers set offer_status = ? where offer_id = ?;";
+//		int rowsChanged = -1;
+//		
+//		try (Connection c = ConnectionUtil.getConnectionFromEnv()){
+//			PreparedStatement ps = c.prepareStatement(sql);
+//			ps.setString(1, "pending");
+//			ps.setInt(2, offer_id);
+//			
+//			rowsChanged = ps.executeUpdate();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		if (rowsChanged < 1) {
+//			return false;
+//		}
+//				
+//		return true;
+//	}
 
 	@Override
 	public boolean deleteOfferByID(int id) {
@@ -212,5 +268,26 @@ public class OfferPostgres implements OfferDao {
 			return false;
 		}
 		return true;
-	}	
+	}
+
+	@Override
+	public boolean rejectOffer(int itemId) {
+		String sql = "update offers set offer_status = ? where requested_item_id = ? and offer_status = 'pending';";
+		int rowsChanged = -1;
+		
+		try (Connection c = ConnectionUtil.getConnectionFromEnv()){
+			PreparedStatement ps = c.prepareStatement(sql);
+			ps.setString(1, "rejected");
+			ps.setInt(2, itemId);
+			rowsChanged = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		if (rowsChanged < 1) {
+			return false;
+		}
+				
+		return true;
+	}
 }

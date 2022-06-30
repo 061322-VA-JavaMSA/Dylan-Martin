@@ -9,8 +9,7 @@ public class Item {
 	private String name;
 	private String description;
 	private int availability;
-//	private int userAssignedId; -- not OOP
-//	private User userAssigned;
+	private Offer requestedOffer;
 	public Item() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -57,5 +56,13 @@ public class Item {
 	@Override
 	public String toString() {
 		return "Item [id=" + item_id + ", name=" + name + ", description=" + description + ", availability=" + availability + "]";
+	}
+	
+	public Offer getRequestedOffer(Offer o) {
+		return requestedOffer;
+	}
+	
+	public void setRequestedOffer(Offer requestedOffer) {
+		this.requestedOffer = requestedOffer;
 	}
 }

@@ -38,9 +38,11 @@ public class MainMenu extends IMenu {
 			ItemMenu itemMenu = new ItemMenu(us);
 			itemMenu.startItemMenu();
 		} else if (choice.equals("2")) {
-			OwnedItems.startOwnedItems();
+			OwnedMenu ownedMenu = new OwnedMenu(us);
+			ownedMenu.startOwnedItems();
 		} else if (choice.equals("3")) {
-			PaymentMenu.startPaymentsMenu();
+			PaymentMenu paymentMenu = new PaymentMenu(us);
+			paymentMenu.startPaymentsMenu();
 		} else if (choice.equals("4")) {
 			System.out.println("Goodbye! Please come again!");
 		}

@@ -12,6 +12,7 @@ import java.util.List;
 import org.postgresql.util.PSQLException;
 
 import com.revature.models.Item;
+import com.revature.models.Offer;
 import com.revature.models.User;
 //import com.revature.services.CustomerService;
 import com.revature.util.ConnectionUtil;
@@ -38,6 +39,35 @@ public class ItemPostgres implements ItemDao {
 		}
 
 		return i;
+	}
+
+
+	@Override
+	public int retrieveItemByOfferID(int offer_id) {
+		String sql = "select i.item_id, i.item_name, o.offer_id from items i join offers o on o.requested_item_id = i.item_id where offer_id = ?;";
+//		Item item = new Item();
+		
+		try (Connection c = ConnectionUtil.getConnectionFromEnv()) {
+			PreparedStatement ps = c.prepareStatement(sql);
+			
+			ps.setInt(1, offer_id);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				Item i = new Item();
+				i.setId(rs.getInt("requested_item_id"));
+				i.setName(rs.getString("item_name"));
+				
+				Offer o = new Offer();
+				o.setId(rs.getInt("offer_id"));
+				
+				i.setRequestedOffer(o);				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return offer_id;
 	}
 
 	@Override
@@ -119,16 +149,14 @@ public class ItemPostgres implements ItemDao {
 	}
 
 	@Override
-	public boolean updateItem(Item i) {
-		String sql = "update items set item_name = ?, item_description = ?, item_state = ? where item_id = ?;";
+	public boolean updateItem(int item_id) {
+		String sql = "update items set item_availability = ? where item_id = ?;";
 		int rowsChanged = -1;
 		
 		try(Connection c = ConnectionUtil.getConnectionFromEnv()){
-			PreparedStatement ps = c.prepareStatement(sql);
-			ps.setString(1, i.getName());
-			ps.setString(2, i.getDescription());			
-			ps.setInt(3, i.getAvailability());
-			ps.setInt(4, i.getId());
+			PreparedStatement ps = c.prepareStatement(sql);			
+			ps.setInt(1, 0);
+			ps.setInt(2, item_id);
 			
 			rowsChanged = ps.executeUpdate();
 			
@@ -141,6 +169,7 @@ public class ItemPostgres implements ItemDao {
 		}
 		return true;
 	}
+	
 
 	@Override
 	public boolean deleteItemById(int item_id) {
@@ -162,4 +191,11 @@ public class ItemPostgres implements ItemDao {
 		}
 		return true;
 	}
+
+
+//	@Override
+//	public boolean updateItem(Item i) {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
 }

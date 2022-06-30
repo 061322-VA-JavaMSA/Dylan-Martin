@@ -84,6 +84,11 @@ public class Offer {
 		return "Offer [id= " + offer_id + ", created by customer id= " + cust_id + ", for the item id= " + requestedItem + ", offer amount= $" + offer_amount + ", offer_status= " + offer_status + "]";
 	}
 
+	public static void updateOffer(Offer offerTBU) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
 
 	

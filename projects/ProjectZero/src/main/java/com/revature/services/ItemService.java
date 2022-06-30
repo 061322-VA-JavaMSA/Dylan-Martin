@@ -28,6 +28,12 @@ public class ItemService {
 		return item;
 	}
 	
+	public boolean updateItem(int item_id) {
+		boolean updateAvailability = id.updateItem(item_id);
+		log.info("availibility: " + updateAvailability + " has been updated");
+		return false;
+	}
+	
 	public boolean deleteItemByID(Item itemTBD) {
 		return false;
 		
@@ -35,5 +41,9 @@ public class ItemService {
 	
 	Item retrieveItemsByItem_Name(String item_name) {
 		return id.retrieveItemsByItem_Name(item_name);
+	}
+	
+	public int getItemByOfferId(int offer_id){
+		return id.retrieveItemByOfferID(offer_id);
 	}
 }

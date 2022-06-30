@@ -27,5 +27,24 @@ public class OfferService {
 	public List<Offer> getOffersByItemId(int item_id) {
 		return	od.retrieveOffersByItemId(item_id);	
 	}
+	
+//	public List<Offer> getOffersByRequested_ItemID(int requested_item_id){
+//		return od.retrieveOffersByRequested_ItemId(requested_item_id);
+//	}
 
+	public Offer getOfferById(int offer_id) {		
+		return od.retrieveOfferById(offer_id);
+	}
+
+	public boolean updateOffer(int offer_id) {
+		boolean acceptedOffer = od.updateOffer(offer_id);
+		log.info("Offer: " + acceptedOffer + " was updated.");
+		return false;
+	}
+
+	public boolean rejectOffer(int item_id) {
+		boolean rejectedOffer = od.rejectOffer(item_id);
+		log.info("Offer: " + rejectedOffer + " was rejected.");
+		return false;
+	}
 }

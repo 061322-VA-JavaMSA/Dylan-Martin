@@ -42,5 +42,4 @@ public class EmployeeMenu extends IMenu {
 			System.out.println("See you later.");
 		}
 	}
-
 }
