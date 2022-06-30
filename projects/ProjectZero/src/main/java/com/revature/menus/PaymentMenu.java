@@ -20,7 +20,7 @@ public class PaymentMenu extends IMenu {
 
 		System.out.println("Welcome to the payments menu.");
 		System.out.println();
-		System.out.println("You are payed in full and have no upcomming payments!");
+		System.out.println("You are payed in full and have no upcoming payments!");
 		System.out.println();
 		System.out.println("Please enter 1 to return to the Main Menu.");
 		System.out.println();

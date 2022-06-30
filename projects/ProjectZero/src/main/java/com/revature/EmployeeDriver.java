@@ -40,7 +40,6 @@ public class EmployeeDriver {
 			try {
 				log.info(as.elogin(e_name, e_pass));
 			} catch (com.revature.exceptions.LoginException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				loginOk = false;
 			}
