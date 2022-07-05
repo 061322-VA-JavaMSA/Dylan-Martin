@@ -1,9 +1,10 @@
 package com.revature.services;
 
-import javax.security.auth.login.LoginException;
+
 
 import com.revature.daos.ERS_UserDao;
 import com.revature.daos.ERS_UserPostgres;
+import com.revature.exceptions.LoginException;
 import com.revature.models.ERS_User;
 
 public class AuthService {

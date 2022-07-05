@@ -1,9 +1,13 @@
+alter database postgres set search_path to 'Project1';
+
 drop table if exists ers_user_roles;
 
 create table if not exists ers_user_roles(
 ers_user_role_id serial primary key,
 user_role varchar(10)
 );
+
+select last_value from ers_user_roles_ers_user_role_id_seq;
 
 drop table if exists ers_users;
 

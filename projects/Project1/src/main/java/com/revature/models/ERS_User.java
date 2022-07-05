@@ -2,6 +2,8 @@ package com.revature.models;
 
 import java.util.Objects;
 
+import javax.management.relation.Role;
+
 public class ERS_User {
 	
 	private int ers_user_id;
@@ -65,7 +67,7 @@ public class ERS_User {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(ers_email, ers_firstname, ers_lastname, ers_password, ers_user_id, ers_username);
+		return Objects.hash(ers_user_id);
 	}
 
 	@Override
@@ -77,16 +79,12 @@ public class ERS_User {
 		if (getClass() != obj.getClass())
 			return false;
 		ERS_User other = (ERS_User) obj;
-		return Objects.equals(ers_email, other.ers_email) && Objects.equals(ers_firstname, other.ers_firstname)
-				&& Objects.equals(ers_lastname, other.ers_lastname) && Objects.equals(ers_password, other.ers_password)
-				&& ers_user_id == other.ers_user_id && Objects.equals(ers_username, other.ers_username);
+		return ers_user_id == other.ers_user_id;
 	}
 
 	@Override
 	public String toString() {
-		return "ERS_User [ers_user_id=" + ers_user_id + ", ers_firstname=" + ers_firstname + ", ers_lastname="
-				+ ers_lastname + ", ers_username=" + ers_username + ", ers_password=" + ers_password + ", ers_email="
-				+ ers_email + "]";
+		return "ERS_User [ers_user_id=" + ers_user_id + "]";
 	}
 	
 }

@@ -18,4 +18,7 @@ public class ERS_User_RoleService {
 		log.info("ERS_User_Role created: " + ers_user_role + " was created.");
 		return ers_user_role;
 	}
+	public ERS_User_Role getMostRecentRole(Object ers_user_role_id) {
+		return urd.retrieveMostRecentRole(ers_user_role_id);
+	}
 }	
