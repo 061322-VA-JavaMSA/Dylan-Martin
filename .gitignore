@@ -1,5 +1,15 @@
-C:\Users\dmart\Documents\Dylan-Martin\Assignments\week2\jdbc-demo\src\main\resources\connection.properties
-C:\Users\dmart\Documents\Dylan-Martin\projects\Project0\src\main\resources\connection.properties
+connection.properties
+
+hibernate.cfg.xml
+
+<property name="hibernate.connection.url">jdbc:postgresql://database-1.c06saqkwyoup.us-east-1.rds.amazonaws.com:5432/postgres?currentSchema=Project1</property>
+<property name="hibernate.connection.username">postgres</property>
+<property name="hibernate.connection.password">Glaive982#</property>
+
+
+# [ -t 0 ] || exec sed \
+#     '/GITIGNORE START/,/GITIGNORE END/d; /GITIGNORE/d' \
+#     C:\Users\dmart\Documents\Dylan-Martin\projects\Project1\src\main\resources\hibernate.cfg.xml
 
 # Created by https://www.toptal.com/developers/gitignore/api/eclipse,dbeaver
 # Edit at https://www.toptal.com/developers/gitignore?templates=eclipse,dbeaver
