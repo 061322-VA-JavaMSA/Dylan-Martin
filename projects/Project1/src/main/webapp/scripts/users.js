@@ -28,7 +28,6 @@ function populateTable(data){
         let tdFirstname = document.createElement('td');
         let tdLastname = document.createElement('td');
         let tdUsername = document.createElement('td');
-        let tdPasword = document.createElement('td');
         let tdEmail = document.createElement('td');
         let tdRole = document.createElement('td');
 
@@ -36,7 +35,6 @@ function populateTable(data){
         tdFirstname.innerHTML = user.firstname;
         tdLastname.innerHTML = user.lastname;
         tdUsername.innerHTML = user.username;
-        tdPassword.innerHTML = user.password;
         tdEmail.innerHTML = user.email;
         tdRole.innerHTML = user.role;
 
@@ -44,8 +42,7 @@ function populateTable(data){
         tr.append(tdFirstname);
         tr.append(tdLastname);
         tr.append(tdUsername);
-        tr.append(tdPassword);
-        tr.appent(tdEmail);
+        tr.append(tdEmail);
         tr.append(tdRole);
 
         tableBody.append(tr);

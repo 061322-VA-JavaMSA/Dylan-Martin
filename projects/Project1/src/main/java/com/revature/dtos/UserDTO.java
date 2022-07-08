@@ -23,10 +23,10 @@ public class UserDTO {
 
 	public UserDTO(User u) {
 		id = u.getId();
-		firstname = u.getUsername();
-		lastname = u.getUsername();
+		firstname = u.getFirstname();
+		lastname = u.getLastname();
 		username = u.getUsername();
-		email = u.getUsername();
+		email = u.getEmail();
 		role = u.getRole();
 	}
 
