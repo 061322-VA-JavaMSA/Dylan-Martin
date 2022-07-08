@@ -1,26 +1,31 @@
 package com.revature.services;
 
-
-
-import com.revature.daos.ERS_UserDao;
-import com.revature.daos.ERS_UserPostgres;
+import com.revature.daos.UserDAO;
+import com.revature.daos.UserHibernate;
 import com.revature.exceptions.LoginException;
-import com.revature.models.ERS_User;
+import com.revature.exceptions.UserNotFoundException;
+import com.revature.models.User;
 
 public class AuthService {
 
+	private UserDAO ud = new UserHibernate();
 	
-	private ERS_UserDao ud = new ERS_UserPostgres();
-	
-	public ERS_User login(String ers_username, String ers_password) throws LoginException {
-		if(ers_username == null || ers_password == null) {
+	/*-
+	 * if the user is found by username and the password matches, returns that user
+	 */
+	public User login(String username, String password) throws UserNotFoundException, LoginException {
+		
+		// principal refers to "currently logged in user"
+		User principal = ud.getUserByUsername(username);
+		
+		if(principal == null) {
+			throw new UserNotFoundException();
+		}
+		
+		if(!principal.getPassword().equals(password)){
 			throw new LoginException();
 		}
 		
-		ERS_User u = ud.retrieveUserByUsername(ers_username);
-		if(u == null || !u.getErs_password().equals(ers_password)) {
-			throw new LoginException();
-		}
-		return u;
+		return principal;
 	}
 }
