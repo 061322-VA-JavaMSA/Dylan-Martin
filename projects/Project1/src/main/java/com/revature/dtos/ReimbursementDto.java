@@ -3,97 +3,112 @@ package com.revature.dtos;
 import java.util.Date;
 import java.util.Objects;
 
+import com.revature.models.Reimbursement;
+import com.revature.models.User;
+
 public class ReimbursementDto {
 
-	private int id;
-	private int amt;
-	private Date submitted;
-	private Date resolved;
-	private String description;
-	private int author_id;
-	private int resolver_id;
-	private int status_id;
-	private int type_id;
+	private int reimb_id;
+	private int reimb_amount;
+	private Date reimb_submitted;
+	private Date reimb_resolved;
+	private String reimb_description;
+	private String reimb_status;
+	private String reimb_type;
+	private User reimb_author;
+	private User reimb_resolver;
 	
 	public ReimbursementDto() {
 		super();
 	}
 
-	public int getId() {
-		return id;
+	public ReimbursementDto(Reimbursement r) {
+		reimb_id = r.getId();
+		reimb_amount = r.getAmt();
+		reimb_submitted = r.getSubmitted();
+		reimb_resolved = r.getResolved();
+		reimb_description = r.getDescription();
+		reimb_status = r.getReimb_status();
+		reimb_type = r.getReimb_type();
+		reimb_author = r.getAuthor_id();
+		reimb_resolver = r.getResolver_id();
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public int getId() {
+		return reimb_id;
+	}
+
+	public void setId(int reimb_id) {
+		this.reimb_id = reimb_id;
 	}
 
 	public int getAmt() {
-		return amt;
+		return reimb_amount;
 	}
 
-	public void setAmt(int amt) {
-		this.amt = amt;
+	public void setAmt(int reimb_amount) {
+		this.reimb_amount = reimb_amount;
 	}
 
 	public Date getSubmitted() {
-		return submitted;
+		return reimb_submitted;
 	}
 
-	public void setSubmitted(Date submitted) {
-		this.submitted = submitted;
+	public void setSubmitted(Date reimb_submitted) {
+		this.reimb_submitted = reimb_submitted;
 	}
 
 	public Date getResolved() {
-		return resolved;
+		return reimb_resolved;
 	}
 
-	public void setResolved(Date resolved) {
-		this.resolved = resolved;
+	public void setResolved(Date reimb_resolved) {
+		this.reimb_resolved = reimb_resolved;
 	}
 
 	public String getDescription() {
-		return description;
+		return reimb_description;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescription(String reimb_description) {
+		this.reimb_description = reimb_description;
 	}
 
-	public int getAuthor_id() {
-		return author_id;
+	public User getAuthor_id() {
+		return reimb_author;
 	}
 
-	public void setAuthor_id(int author_id) {
-		this.author_id = author_id;
+	public void setAuthor_id(User reimb_author) {
+		this.reimb_author = reimb_author;
 	}
 
-	public int getResolver_id() {
-		return resolver_id;
+	public User getResolver_id() {
+		return reimb_resolver;
 	}
 
-	public void setResolver_id(int resolver_id) {
-		this.resolver_id = resolver_id;
+	public void setResolver_id(User reimb_resolver) {
+		this.reimb_resolver = reimb_resolver;
 	}
 
-	public int getStatus_id() {
-		return status_id;
+	public String getStatus() {
+		return reimb_status;
 	}
 
-	public void setStatus_id(int status_id) {
-		this.status_id = status_id;
+	public void setStatus(String reimb_status) {
+		this.reimb_status = reimb_status;
 	}
 
-	public int getType_id() {
-		return type_id;
+	public String getType() {
+		return reimb_type;
 	}
 
-	public void setType_id(int type_id) {
-		this.type_id = type_id;
+	public void setType(String reimb_type) {
+		this.reimb_type = reimb_type;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(amt, author_id, description, id, resolved, resolver_id, status_id, submitted, type_id);
+		return Objects.hash(reimb_amount, reimb_author, reimb_description, reimb_id, reimb_resolved, reimb_resolver, reimb_status, reimb_submitted, reimb_type);
 	}
 
 	@Override
@@ -105,16 +120,17 @@ public class ReimbursementDto {
 		if (getClass() != obj.getClass())
 			return false;
 		ReimbursementDto other = (ReimbursementDto) obj;
-		return amt == other.amt && author_id == other.author_id && Objects.equals(description, other.description)
-				&& id == other.id && Objects.equals(resolved, other.resolved) && resolver_id == other.resolver_id
-				&& status_id == other.status_id && Objects.equals(submitted, other.submitted)
-				&& type_id == other.type_id;
+		return reimb_amount == other.reimb_amount && Objects.equals(reimb_author, other.reimb_author)
+				&& Objects.equals(reimb_description, other.reimb_description) && reimb_id == other.reimb_id
+				&& Objects.equals(reimb_resolved, other.reimb_resolved) && Objects.equals(reimb_resolver, other.reimb_resolver)
+				&& Objects.equals(reimb_status, other.reimb_status) && Objects.equals(reimb_submitted, other.reimb_submitted)
+				&& Objects.equals(reimb_type, other.reimb_type);
 	}
 
 	@Override
 	public String toString() {
-		return "ReimbursementDto [id=" + id + ", amt=" + amt + ", submitted=" + submitted + ", resolved=" + resolved
-				+ ", description=" + description + ", author_id=" + author_id + ", resolver_id=" + resolver_id
-				+ ", status_id=" + status_id + ", type_id=" + type_id + "]";
+		return "ReimbursementDto [id=" + reimb_id + ", amt=" + reimb_amount + ", submitted=" + reimb_submitted + ", resolved=" + reimb_resolved
+				+ ", description=" + reimb_description + ", author_id=" + reimb_author + ", resolver_id=" + reimb_resolver
+				+ ", status=" + reimb_status + ", type=" + reimb_type + "]";
 	}	
 }

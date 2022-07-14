@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Request a Reimbursement</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../styles/main.css">
+</head>
+
+<body>
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="./index.html"><img src="../images/revature-logo.png"
+                style="height: 2.5em; padding: 0.5em" /></a>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="nav-left"></ul>
+        <ul class="navbar-nav navbar-right" id="nav-right"></ul>
+    </nav>
+    <main class="container-fluid mx-auto " style="padding: 0 7.5em;">
+        <div class="container align-content-center" id="reimbursementForm">
+            <form class="d-flex justify-content-center" style="padding-top: 2.5em;" id="reimbursement">
+                <input type="text" name="amt" placeholder="Amount Requested" id="amt">
+                <br>
+                <input type="text" name="description" placeholder="Short Description" id="description">
+                <br>
+                <input type="text" name="reimb_type" placeholder="Reimbursement Type" id="reimb_type">
+            </form>
+            <br>
+            <div class="d-flex justify-content-center">
+                <input class="btn btn-outline-secondary" value="Submit" id="submitButton">
+                <br>
+            </div>
+            <br>
+        </div>
+    </main>
+    <footer class="bg-light text-center fixed-bottom">
+        <div class="text centher p-3">Dylan Martin - 2022 Revature Associate</div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-Qw82+bXyZfDpLQgDpyZxlIV+u2T2TzCYJlqmBn0WLaUAdnphxj5uQrutxHd" crossorigin="anonymous"></script>
+    <script src="../scripts/main.js"></script>
+    <script src="../scripts/reimbursement.js"></script>
+</body>
+
+</html>

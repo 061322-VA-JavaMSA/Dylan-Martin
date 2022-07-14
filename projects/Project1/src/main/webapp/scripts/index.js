@@ -4,5 +4,5 @@ let welcomeH1 = document.getElementById('welcome');
 if(principal){
     welcomeH1.innerHTML = `Welcome back ${principal.username}!`
 } else{
-    welcomeH1.innerHTML = `Welcome to Project1!`
+    welcomeH1.innerHTML = `Welcome to the Employee Reimbursement System!`
 }

@@ -1,0 +1,9 @@
+select, input[type="text"], input[type="password"]{
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.dropdown {
+    /* margin-left: 1em; */
+	padding-left: 1em;
+}

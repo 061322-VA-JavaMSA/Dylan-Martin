@@ -3,7 +3,6 @@
 	xmlns="http://JAVA.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
-	<display-name>Project1</display-name>
 	<servlet>
 		<servlet-name>user-servlet</servlet-name>
 		<servlet-class>com.revature.servlets.UserServlet</servlet-class>
@@ -19,5 +18,13 @@
 	<servlet-mapping>
 		<servlet-name>auth-servlet</servlet-name>
 		<url-pattern>/auth</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>reimbursement-servlet</servlet-name>
+		<servlet-class>com.revature.servlets.ReimbursementServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>reimbursement-servlet</servlet-name>
+		<url-pattern>/reimbursements/*</url-pattern>
 	</servlet-mapping>
 </web-app>

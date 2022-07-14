@@ -15,9 +15,13 @@ if (principalString) {
 
     if (principal.role === 'ADMIN') {
         createNavElement('Users', nav_left, './users.html', null);
+
+        createNavElement('Pending Reimbursements', nav_left, './pending.html', null);
+
+        createNavElement('Accepted Reimbursements', nav_left, './accepted.html', null);
     }
 
-    createNavElement('Reimbursements', nav_left, './reimbursements.html', null);
+    createNavElement('Request a Reimbursement', nav_left, './reimbursement.html', null);
 
     createNavElement('Logout', nav_right, null, logout);
 } else {
