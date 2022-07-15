@@ -2,13 +2,13 @@
 if(!principal || principal.role !== 'ADMIN'){
     window.location.href="./index.html";
 }else{
-    getReimbursements();
+    getReimbursementsByStatus();
 }
 
-async function getReimbursements(){
+async function getReimbursementsByStatus(){
 
-    let response = await fetch(`${apiUrl}/reimbursements`, {
-        credentials: 'include'
+    let response = await fetch(`${apiUrl}/accepted`, {
+        credentials: 'include',
 });
 
     if(response.status == 200){
@@ -40,8 +40,8 @@ function populateTable(data){
         tdDateSubmitted.innerHTML = new Date(reimbursement.submitted).toLocaleDateString("en-US");
         tdDateResolved.innerHTML = new Date(reimbursement.resolved).toLocaleDateString("en-US");
         tdDescription.innerHTML = reimbursement.description;
-        tdAuthor.innerHTML = reimbursement.author_id.id;
-        tdResolver.innerHTML = reimbursement.resolver_id.id;
+        tdAuthor.innerHTML = reimbursement.author_id.firstname + " " + reimbursement.author_id.lastname;
+        tdResolver.innerHTML = reimbursement.resolver_id.firstname + " " + reimbursement.resolver_id.lastname;
         tdStatus.innerHTML = reimbursement.status;
         tdType.innerHTML = reimbursement.type;
         
@@ -58,3 +58,4 @@ function populateTable(data){
         tableBody.append(tr);
     });
 }
+

@@ -31,6 +31,22 @@ public class ReimbursementService {
 		return r;
 	}
 	
+	public List<Reimbursement> getPendingReimbursements(String reimb_status) throws ReimbursementNotFoundException {
+		List<Reimbursement> r = rd.getPendingReimbursements(reimb_status);
+		if (r == null) {
+			throw new ReimbursementNotFoundException();
+		}
+		return r;
+	}
+
+	public List<Reimbursement> getReimbursementsByStatus(String reimb_status) throws ReimbursementNotFoundException {
+		List<Reimbursement> r = rd.getReimbursementsByStatus(reimb_status);
+		if (r == null) {
+			throw new ReimbursementNotFoundException();
+		}
+		return r;
+	}
+	
 	public List<Reimbursement> getReimbursements(){
 		List<Reimbursement> reimbursements = rd.getReimbursements();
 		return reimbursements;

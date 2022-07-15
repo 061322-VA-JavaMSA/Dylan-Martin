@@ -2,6 +2,9 @@ package com.revature.services;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.revature.daos.UserDAO;
 import com.revature.daos.UserHibernate;
 import com.revature.exceptions.UserNotCreatedException;
@@ -13,6 +16,8 @@ public class UserService {
 
 	private UserDAO ud = new UserHibernate();
 	
+	private static Logger log = LogManager.getLogger(UserService.class);
+	
 	public User createUser(User u) throws UserNotCreatedException {
 		// by default, created account will be basic Users
 		u.setRole(Role.BASIC_USER);
@@ -21,6 +26,7 @@ public class UserService {
 		if(createdUser.getId() == -1) {
 			throw new UserNotCreatedException();
 		}
+		log.info("User: " + u.getUsername() + " was created.");
 		return createdUser;
 	}
 	

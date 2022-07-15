@@ -27,4 +27,20 @@
 		<servlet-name>reimbursement-servlet</servlet-name>
 		<url-pattern>/reimbursements/*</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>accepted-servlet</servlet-name>
+		<servlet-class>com.revature.servlets.AcceptedServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>accepted-servlet</servlet-name>
+		<url-pattern>/accepted/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>profile-servlet</servlet-name>
+		<servlet-class>com.revature.servlets.ProfileServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>profile-servlet</servlet-name>
+		<url-pattern>/profile/*</url-pattern>
+	</servlet-mapping>
 </web-app>

@@ -23,6 +23,8 @@ if (principalString) {
 
     createNavElement('Request a Reimbursement', nav_left, './reimbursement.html', null);
 
+    // createNavElement('Profile', nav_right, './profile.html', null);
+
     createNavElement('Logout', nav_right, null, logout);
 } else {
     createNavElement('Login', nav_right, './login.html', null);

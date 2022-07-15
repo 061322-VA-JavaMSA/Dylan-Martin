@@ -73,9 +73,24 @@ public class ReimbursementHibernate implements ReimbursementDAO {
 	}
 
 	@Override
-	public Reimbursement getReimbursementByStatus(String status) {
+	public List<Reimbursement> getPendingReimbursements(String reimb_status) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Reimbursement> getReimbursementsByStatus(String reimb_status) {
+		//select * from reimbursements where reimb_status = 'Accepted';
+        List<Reimbursement> reimbursements = null;
+
+        try(Session s = HibernateUtil.getSessionFactory().openSession()){
+        	String hql = "from Reimbursement r where r.reimb_status = :status";
+        	reimbursements = s.createQuery(hql)
+        	.setParameter("status", reimb_status)
+        	.list();
+        }
+
+        return reimbursements;
 	}
 
 	//update reimbursement status to accepted

@@ -36,6 +36,7 @@ public class ReimbursementServlet extends HttpServlet {
 	private ReimbursementService rs = new ReimbursementService();
 	// object to convert to JSON format
 	private ObjectMapper om = new ObjectMapper();
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 		// Specifying that the response content-type will be JSON
@@ -47,7 +48,7 @@ public class ReimbursementServlet extends HttpServlet {
 		if (pathInfo == null) {
 			HttpSession session = req.getSession();
 
-			if (session.getAttribute("userRole")!= null && session.getAttribute("userRole").equals(Role.ADMIN)) {
+			if (session.getAttribute("userRole") != null && session.getAttribute("userRole").equals(Role.ADMIN)) {
 				// retrieving users from db using UserService
 				List<Reimbursement> reimbursements = rs.getReimbursements();
 				List<ReimbursementDto> reimbursementsDto = new ArrayList<>();
@@ -61,7 +62,98 @@ public class ReimbursementServlet extends HttpServlet {
 				pw.write(om.writeValueAsString(reimbursementsDto));
 
 				pw.close();
-			}else {
+			} else {
+				// if the user making the request is not an admin
+				res.sendError(401, "Unauthorized request.");
+			}
+		}
+		// get all reimbursements where reimb_status = accepted
+		String reimb_status = req.getParameter("reimb_status");
+		if (reimb_status != null) {
+			List<Reimbursement> reimbursement = null;
+			try {
+				reimbursement = rs.getReimbursementsByStatus(reimb_status);
+			} catch (ReimbursementNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			List<ReimbursementDto> reimbursementsDto = new ArrayList<>();
+
+			// converting Users to UserDTOs for data transfer
+			reimbursement.forEach(r -> reimbursementsDto.add(new ReimbursementDto(r)));
+
+			// retrieving print writer to write to the Response body
+			PrintWriter pw = res.getWriter();
+			// writing toString representation of Users to body
+			pw.write(om.writeValueAsString(reimbursementsDto));
+
+			pw.close();
+		}
+		
+//		try {
+//			String cookie = res.getHeader("Set-cookie")+";SameSite=None; Secure";
+//			res.setHeader("Set-Cookie", cookie);
+//			
+//			List<Reimbursement> reimbursement = rs.getReimbursementsByStatus();
+//			
+//			try (PrintWriter pw = res.getWriter()){
+//				pw.write(om.writeValueAsString(reimbursement));
+//				res.setStatus(200);
+//			}
+//		}catch (ReimbursementNotFoundException e) {
+//			res.sendError(400, "No Accepted requests.");
+//			e.printStackTrace();
+//		}
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+		InputStream reqBody = req.getInputStream();
+
+		Reimbursement newReimbursement = om.readValue(reqBody, Reimbursement.class);
+		newReimbursement.setSubmitted(new Date());
+
+		try {
+			rs.createReimbursement(newReimbursement);
+
+			res.setStatus(201); // Status: Created
+		} catch (ReimbursementNotCreatedException e) {
+//			res.setStatus(400);
+			res.sendError(400, "Unable to create new user.");
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+		// Specifying that the response content-type will be JSON
+		CorsFix.addCorsHeader(req.getRequestURI(), res);
+		res.addHeader("Content-Type", "application/json");
+		int rid = Integer.parseInt(req.getParameter("reimb_id"));
+		String pathInfo = req.getPathInfo();
+
+		// if pathInfo is null, the req should be to /users -> send back all users
+		if (pathInfo == null) {
+			HttpSession session = req.getSession();
+
+			if (session.getAttribute("userRole") != null && session.getAttribute("userRole").equals(Role.ADMIN)) {
+				try {
+					int id = (int) session.getAttribute("userId");
+
+					User u;
+					Reimbursement r = rs.getReimbursementById(rid);
+					r.setReimb_status("Accepted");
+					r.setResolved(new Date());
+					u = us.getUserById(id);
+					r.setResolver_id(u);
+					rs.updateReimbursement(r);
+					res.setStatus(200);
+				} catch (ReimbursementNotFoundException | UserNotFoundException e) {
+					res.sendError(400, "Unable to update reimbursement status.");
+					e.printStackTrace();
+				}
+
+			} else {
 				// if the user making the request is not an admin
 				res.sendError(401, "Unauthorized request.");
 			}
@@ -88,34 +180,36 @@ public class ReimbursementServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-		InputStream reqBody = req.getInputStream();
+	protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+		// Specifying that the response content-type will be JSON
+		CorsFix.addCorsHeader(req.getRequestURI(), res);
+		res.addHeader("Content-Type", "application/json");
+		int rid = Integer.parseInt(req.getParameter("reimb_id"));
+		String pathInfo = req.getPathInfo();
 
-		Reimbursement newReimbursement = om.readValue(reqBody, Reimbursement.class);
-		newReimbursement.setSubmitted(new Date());
+		// if pathInfo is null, the req should be to /users -> send back all users
+		if (pathInfo == null) {
+			HttpSession session = req.getSession();
 
-		try {
-			rs.createReimbursement(newReimbursement);
+			if (session.getAttribute("userRole") != null && session.getAttribute("userRole").equals(Role.ADMIN)) {
+				try {
+					int id = (int) session.getAttribute("userId");
 
-			res.setStatus(201); // Status: Created
-		} catch (ReimbursementNotCreatedException e) {
-//			res.setStatus(400);
-			res.sendError(400, "Unable to create new user.");
-			e.printStackTrace();
-		}
-	}
-	
-	@Override
-	protected void doPut(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		int id = Integer.parseInt(req.getParameter("reimb_id"));
-		try {
-			Reimbursement r = rs.getReimbursementById(id);
-			r.setReimb_status("Accepted");
-			rs.updateReimbursement(r);
-			res.setStatus(200);
-		} catch (ReimbursementNotFoundException e) {
-			res.sendError(400, "Unable to update reimbursement status.");
-			e.printStackTrace();
+					User u;
+					Reimbursement r = rs.getReimbursementById(rid);
+					r.setReimb_status("Deleted");
+					r.setResolved(new Date());
+					u = us.getUserById(id);
+					r.setResolver_id(u);
+					rs.updateReimbursement(r);
+					res.setStatus(200);
+				} catch (ReimbursementNotFoundException e) {
+					res.sendError(400, "Unable to update reimbursement status.");
+					e.printStackTrace();
+				} catch (UserNotFoundException e) {
+					throw new RuntimeException(e);
+				}
+			}
 		}
 	}
 }

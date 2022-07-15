@@ -10,7 +10,8 @@ public interface ReimbursementDAO {
 	List<Reimbursement> getReimbursements();
 	Reimbursement getReimbursementByUsername(String username);
 	Reimbursement getReimbursementByType(String type);
-	Reimbursement getReimbursementByStatus(String status);
+	List<Reimbursement> getReimbursementsByStatus(String reimb_status);
 	Reimbursement updateReimbursement(Reimbursement r);
 	Reimbursement getReimbursementById(int reimb_id);
+	List<Reimbursement> getPendingReimbursements(String reimb_status);
 }
